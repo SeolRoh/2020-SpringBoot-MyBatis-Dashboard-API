@@ -58,21 +58,21 @@ public class UsersController {
 //    }
     //회원가입post
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public Users createUser(@Valid @RequestBody Users user){
+    public ResponseData createUser(@Valid @RequestBody Users user){
         System.out.println("post 등록");
         int createdUser = service.createUser(user);
-        System.out.println("createdUser 함수로 가져온 id 값" + createdUser);
-        Users getUser = service.getUserById(createdUser);
+//        System.out.println("createdUser 함수로 가져온 id 값" + createdUser);
+//        Users getUser = service.getUserById(createdUser);
 //        if(getUser != null){
 //            return getUser;
 //        }
-        return getUser;
-//        ResponseData res = new ResponseData();
-//        if(createdUser == 1){
-//            res.setIsSucceed(1);
-//        }else{
-//            res.setIsSucceed(0);
-//        }
-//        return res;
+//        return getUser;
+        ResponseData res = new ResponseData();
+        if(createdUser >= 1){ // xml파일에다 id값 return받기로함
+            res.setIsSucceed(1);
+        }else{
+            res.setIsSucceed(0);
+        }
+        return res;
     }
 }
