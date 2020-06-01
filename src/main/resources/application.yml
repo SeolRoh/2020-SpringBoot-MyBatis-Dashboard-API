@@ -7,6 +7,10 @@ spring:
         username: root
         password: oracle
         driver-class-name: com.mysql.cj.jdbc.Driver
+#    mvc:
+#        view:
+#            prefix: /WEB-INF.lib
+#            suffix: .jsp
 
 mybatis:
     type-aliases-package: com.example.springbootmybatis.entity

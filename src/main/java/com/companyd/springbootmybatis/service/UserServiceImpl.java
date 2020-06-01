@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService{
         return mapper.deleteUser(id);
 
     }
+
+    @Override
+    public Users getLogin(Users user){
+        return mapper.login(user);//조회된 값이 담기게
+    }
 }
