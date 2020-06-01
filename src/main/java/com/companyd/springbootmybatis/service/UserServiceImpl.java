@@ -3,12 +3,16 @@ package com.companyd.springbootmybatis.service;
 import com.companyd.springbootmybatis.entity.Users;
 import com.companyd.springbootmybatis.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Autowired
     UserMapper mapper;
 
@@ -26,12 +30,18 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    @Override
+    @Override // public int createUser(Users user)
     public int createUser(Users user) {
         mapper.insertUser(user);
         System.out.println("생성쿼리 실행!");
         int idData = user.getId();
+//        String passwordData = user.getPassword();
         System.out.println("생성된 id 값 : " + idData);
+//        System.out.println("생성된 pw 값 : " + passwordData);
+//
+//        user.setPassword(passwordEncoder.encode(passwordData));
+//        System.out.println("encode pw 값 : " + user.getPassword());
+
         return idData;
 
     }
@@ -55,6 +65,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Users getLogin(Users user){
-        return mapper.login(user);//조회된 값이 담기게
+        return mapper.login(user);//조회된 값이 담기게 이메일이랑 패스워드
     }
 }

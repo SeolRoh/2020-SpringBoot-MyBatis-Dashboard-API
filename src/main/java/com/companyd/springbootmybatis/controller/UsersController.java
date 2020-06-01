@@ -1,19 +1,14 @@
 package com.companyd.springbootmybatis.controller;
 
-import com.companyd.springbootmybatis.entity.ResponseData;
+import com.companyd.springbootmybatis.entity.SignUpResponseData;
 import com.companyd.springbootmybatis.entity.Users;
 import com.companyd.springbootmybatis.exception.UserNotFoundException;
 import com.companyd.springbootmybatis.service.UserService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 public class UsersController {
@@ -45,8 +40,8 @@ public class UsersController {
 //        return createdUser;
 //    }
 //  회원가입
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseData createUser(@Valid @RequestBody Users user){
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public SignUpResponseData createUser(@Valid @RequestBody Users user){
         System.out.println("post 등록");
         int createdUser = service.createUser(user);
 //        System.out.println("createdUser 함수로 가져온 id 값" + createdUser);
@@ -55,7 +50,7 @@ public class UsersController {
 //            return getUser;
 //        }
 //        return getUser;
-        ResponseData res = new ResponseData();
+        SignUpResponseData res = new SignUpResponseData();
         if(createdUser >= 1){ // xml파일에다 id값 return받기로함
             res.setIsSucceed(1);
         }else{
@@ -63,30 +58,9 @@ public class UsersController {
         }
         return res;
     }
-////    로그인
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(Users user, HttpServletRequest req, RedirectAttributes rttr){
-//        System.out.println("login 전");
-//
-//        HttpSession session = req.getSession();
-//        Users login = service.getLogin(user);
-//        if(login == null){
-//            session.setAttribute("member",null);
-//            rttr.addFlashAttribute("msg",false);
-//        }else{
-//            session.setAttribute("member",login);
-//        }
-//        return "redirect:/";
-//    }
-//  로그아웃
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        session.invalidate();
-        System.out.println("logout실행");
-        return "redirect:/";
-    }
+
 //  회원탈퇴
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/delete/{id}")
     public int removeUser(@PathVariable int id) {
         int user = service.removeUser(id);
         if (user == 0 ) {
