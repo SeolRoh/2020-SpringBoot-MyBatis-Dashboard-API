@@ -1,5 +1,6 @@
 package com.companyd.springbootmybatis.controller;
 
+import com.companyd.springbootmybatis.entity.LoginResponseData;
 import com.companyd.springbootmybatis.entity.SignUpResponseData;
 import com.companyd.springbootmybatis.entity.Users;
 import com.companyd.springbootmybatis.exception.UserNotFoundException;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -57,6 +59,7 @@ public class UsersController {
             res.setIsSucceed(1);
         }else{
             res.setIsSucceed(0);
+            // UserNotFoundException("No-CreatedUser");
         }
         return res;
     }
@@ -69,5 +72,28 @@ public class UsersController {
             throw new UserNotFoundException("id-" + id);
         }
         return user;
+    }
+
+    @GetMapping("/abc")
+    public List<Users> getUsers() {
+        List<Users> list = service.getAllUsers();
+        return list;
+    }
+
+    @PostMapping("/login")
+    public LoginResponseData getLogin(@RequestBody Users user){
+
+        System.out.println("login test");
+        Users login = service.getLogin(user);
+        LoginResponseData res = new LoginResponseData();
+        if(user.getPassword().equals(login.getPassword())){
+            res.setIsSucceed(1);
+            System.out.println("로그인 성공");
+        }else if(!user.getPassword().equals(login.getPassword())){
+            res.setIsSucceed(0); System.out.println("비번이 서로 달라 로그인 실패");
+        }else if (user.getEmail() == null || user.getPassword() == null){
+            res.setIsSucceed(0); System.out.println("둘중에 하나 널값들어옴");
+        }
+        return res;
     }
 }

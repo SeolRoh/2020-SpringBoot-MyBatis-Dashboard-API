@@ -3,18 +3,12 @@ package com.companyd.springbootmybatis.service;
 import com.companyd.springbootmybatis.entity.Users;
 import com.companyd.springbootmybatis.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @Autowired
     UserMapper mapper;
 
@@ -66,10 +60,5 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users getLogin(Users user){
         return mapper.login(user);//조회된 값이 담기게 이메일이랑 패스워드
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
     }
 }
