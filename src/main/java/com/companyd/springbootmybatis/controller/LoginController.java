@@ -21,7 +21,7 @@ public class LoginController {
     @Autowired
     UserService service;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResponseData getLogin(@RequestBody Users user){
         Users login = service.getLogin(user);
         LoginResponseData res = new LoginResponseData();
@@ -51,6 +51,7 @@ public class LoginController {
 //        System.out.println("login 후");
 //        return "redirect:/";
 //    }
+
 //    //  로그아웃
 //    @RequestMapping(value = "/logout", method = RequestMethod.GET)
 //    public String logout(HttpSession session) {
