@@ -5,7 +5,7 @@ import com.companyd.springbootmybatis.entity.SignUpResponseData;
 import com.companyd.springbootmybatis.entity.Users;
 import com.companyd.springbootmybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
